@@ -22,14 +22,22 @@ const app = express();
 // Configuración de CORS más segura y específica
 //Intercambio de recursos de origen cruzado
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-    ?.split(',')
-    .map((origin) => origin.trim())
-    .filter(Boolean);
+const defaultAllowedOrigins = [
+    'https://torneopro-3.onrender.com',
+    'http://localhost:5173',
+];
+
+const allowedOrigins = [
+    ...defaultAllowedOrigins,
+    ...(process.env.ALLOWED_ORIGINS
+        ?.split(',')
+        .map((origin) => origin.trim())
+        .filter(Boolean) || []),
+];
 
 const corsOptions = {
     origin(origin, callback) {
-        if (!origin || !allowedOrigins?.length || allowedOrigins.includes(origin)) {
+        if (!origin || allowedOrigins.includes(origin)) {
             return callback(null, true);
         }
 
