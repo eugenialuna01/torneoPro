@@ -16,6 +16,24 @@ import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext(null);
 
+const getAuthErrorMessage = (
+  error,
+  fallback
+) => {
+  if (error.response) {
+    return (
+      error.response.data
+        ?.message || fallback
+    );
+  }
+
+  if (error.request) {
+    return "No se pudo conectar con el servidor. Revisá la URL de la API y CORS.";
+  }
+
+  return error.message || fallback;
+};
+
 export const AuthProvider = ({
   children,
 }) => {
@@ -128,16 +146,24 @@ export const AuthProvider = ({
 
       console.error(
         "Error login:",
-        error.response?.data
-          ?.message
+        {
+          message: error.message,
+          code: error.code,
+          status:
+            error.response?.status,
+          data: error.response?.data,
+          url: error.config?.url,
+          baseURL:
+            error.config?.baseURL,
+        }
       );
 
       return {
         success: false,
-        message:
-          error.response?.data
-            ?.message ||
-          "Error al iniciar sesión",
+        message: getAuthErrorMessage(
+          error,
+          "Error al iniciar sesión"
+        ),
       };
     }
   };
@@ -217,16 +243,24 @@ export const AuthProvider = ({
     } catch (error) {
       console.error(
         "Error register:",
-        error.response?.data
-          ?.message
+        {
+          message: error.message,
+          code: error.code,
+          status:
+            error.response?.status,
+          data: error.response?.data,
+          url: error.config?.url,
+          baseURL:
+            error.config?.baseURL,
+        }
       );
 
       return {
         success: false,
-        message:
-          error.response?.data
-            ?.message ||
-          "Error al registrarse",
+        message: getAuthErrorMessage(
+          error,
+          "Error al registrarse"
+        ),
       };
     }
   };
