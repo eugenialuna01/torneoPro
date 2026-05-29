@@ -5,13 +5,6 @@ import dotenv from 'dotenv';
 import { connectDB } from './config/dbConfig.js';
 import routes from './routes/index.js';
 
-import express, { json } from 'express';
-import cors from 'cors';
-import dotenv from 'dotenv';
-
-import { connectDB } from './config/dbConfig.js';
-import routes from './routes/index.js';
-
 dotenv.confing();
 console.log(process.env.MONGO_URL);
 
