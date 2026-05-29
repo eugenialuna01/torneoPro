@@ -22,20 +22,9 @@ const app = express();
 // Configuración de CORS más segura y específica
 //Intercambio de recursos de origen cruzado
 
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-    ?.split(',')
-    .map((origin) => origin.trim())
-    .filter(Boolean);
-
 const corsOptions = {
-    origin(origin, callback) {
-        if (!origin || !allowedOrigins?.length || allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        }
-
-        return callback(new Error(`Origen no permitido por CORS: ${origin}`));
-    },
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    origin: process.env.ALLOWED_ORIGINS?.split(',') || '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     exposedHeaders: ['Content-Range', 'X-Content-Range'],
     credentials: true,
@@ -43,7 +32,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options(/.*/, cors(corsOptions));
 app.use(json());
 
 // Rutas
