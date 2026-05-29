@@ -184,7 +184,7 @@ const Register = () => {
 
           <div className="text-center mt-6">
             <Link
-              to="/login"
+              to="/api/login"
               className="text-sm text-slate-500 hover:text-red-700 font-semibold"
             >
               ¿Ya tenés una cuenta? Iniciar sesión

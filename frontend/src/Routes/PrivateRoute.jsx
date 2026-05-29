@@ -6,7 +6,7 @@ const PrivateRoute = ({ children }) => {
 
   const { user,loading } = useAuth()
  if (loading) return <h1>Cargando...</h1>; // o spinner
-  return user ? children : <Navigate to="/login" replace />
+  return user ? children : <Navigate to="/api/login" replace />
 }
 
 export default PrivateRoute

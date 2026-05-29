@@ -127,7 +127,7 @@ const Navbar = () => {
             <div className="flex items-center gap-3">
 
               <Link
-                to="/login"
+                to="/api/login"
                 className="text-sm font-semibold text-slate-300 hover:text-white transition"
               >
                 Iniciar sesión
