@@ -31,10 +31,8 @@ const AppRoutes = () => {
           <Route path="/equipos" element={<PrivateRoute><Teams /></PrivateRoute>} />
           <Route path="/jugadores" element={<PrivateRoute><Players /></PrivateRoute>} />
           <Route path="/partidos" element={<PrivateRoute><Matches /></PrivateRoute>} />
-          <Route path="/login" element={ <Login /> } />
           <Route path="/api/login" element={ <Login /> } />
-          <Route path="/register" element={ <Register /> } />
-          <Route path="/api/register" element={ <Register /> } />
+          <Route path="api/register" element={ <Register /> } />
         </Routes>
     </PlayerProvider>
     </MatchProvider>
